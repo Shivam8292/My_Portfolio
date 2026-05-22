@@ -7,6 +7,12 @@ Feel free to explore the code and use it for learning and inspiration.
 
 ---
 
+## 📸 Portfolio Preview
+
+![Portfolio Preview](public/images/portfolio_preview.png)
+
+---
+
 ## ⚙️ Tech Stack
 
 - **Framework:** React (Vite)
