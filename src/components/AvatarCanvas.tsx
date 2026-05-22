@@ -1,7 +1,21 @@
 import { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Float, Sparkles, Stars, Center } from '@react-three/drei';
+import { OrbitControls, Float, Sparkles, Stars, Center, useGLTF } from '@react-three/drei';
 
+// Real 3D Humanoid Avatar using useGLTF
+function AvatarModel() {
+  const { scene } = useGLTF('https://cdn.jsdelivr.net/gh/c-frame/valid-avatars-glb@master/avatars/AIAN/AIAN_M_1_Casual.glb');
+  return (
+    <primitive 
+      object={scene} 
+      scale={0.9} 
+      position={[0, -0.5, 0.5]} // Positioned in front of the workstation desk
+      rotation={[0, Math.PI, 0]} // Rotate to face forward
+    />
+  );
+}
+
+// 3D Developer Desk Setup
 function DeveloperWorkstation() {
   return (
     <group position={[0, -0.5, 0]}>
@@ -95,11 +109,21 @@ function DeveloperWorkstation() {
   );
 }
 
+// Spinning loading sphere indicator
+function CanvasLoader() {
+  return (
+    <mesh>
+      <sphereGeometry args={[0.5, 16, 16]} />
+      <meshStandardMaterial color="#06b6d4" emissive="#06b6d4" wireframe />
+    </mesh>
+  );
+}
+
 export default function AvatarCanvas() {
   return (
     <div style={{ width: '100%', height: '500px', cursor: 'grab' }}>
       <Canvas
-        camera={{ position: [4, 3, 5], fov: 45 }}
+        camera={{ position: [5, 4, 6], fov: 45 }}
         style={{ background: 'transparent' }}
       >
         <ambientLight intensity={0.6} />
@@ -107,9 +131,10 @@ export default function AvatarCanvas() {
         <pointLight position={[-10, 5, -10]} intensity={0.8} color="#06b6d4" />
         <directionalLight position={[0, 10, 0]} intensity={1} />
         
-        <Suspense fallback={null}>
+        <Suspense fallback={<CanvasLoader />}>
           <Center>
             <DeveloperWorkstation />
+            <AvatarModel />
           </Center>
           <Sparkles count={50} scale={4} size={2} speed={0.4} color="#06b6d4" />
           <Stars radius={100} depth={50} count={300} factor={4} saturation={0.5} fade speed={1} />
@@ -126,3 +151,5 @@ export default function AvatarCanvas() {
     </div>
   );
 }
+// Pre-load the avatar model for smoother initial canvas transition
+useGLTF.preload('https://cdn.jsdelivr.net/gh/c-frame/valid-avatars-glb@master/avatars/AIAN/AIAN_M_1_Casual.glb');
