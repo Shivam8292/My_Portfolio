@@ -10,28 +10,33 @@ const Loading = ({ percent }: { percent: number }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [clicked, setClicked] = useState(false);
 
-  if (percent >= 100) {
-    setTimeout(() => {
-      setLoaded(true);
-      setTimeout(() => {
-        setIsLoaded(true);
+  useEffect(() => {
+    if (percent >= 100 && !loaded) {
+      const t1 = setTimeout(() => {
+        setLoaded(true);
+        const t2 = setTimeout(() => {
+          setIsLoaded(true);
+        }, 100);
+        return () => clearTimeout(t2);
       }, 100);
-    }, 100);
-  }
+      return () => clearTimeout(t1);
+    }
+  }, [percent, loaded]);
 
   useEffect(() => {
-    import("./utils/initialFX").then((module) => {
-      if (isLoaded) {
+    if (isLoaded) {
+      import("./utils/initialFX").then((module) => {
         setClicked(true);
-        setTimeout(() => {
+        const t3 = setTimeout(() => {
           if (module.initialFX) {
             module.initialFX();
           }
           setIsLoading(false);
         }, 150);
-      }
-    });
-  }, [isLoaded]);
+        return () => clearTimeout(t3);
+      });
+    }
+  }, [isLoaded, setIsLoading]);
 
   function handleMouseMove(e: React.MouseEvent<HTMLElement>) {
     const { currentTarget: target } = e;
@@ -96,23 +101,15 @@ export const setProgress = (setLoading: (value: number) => void) => {
   let percent: number = 0;
 
   let interval = setInterval(() => {
-    if (percent <= 50) {
-      let rand = Math.round(Math.random() * 15) + 5;
+    if (percent < 90) {
+      let rand = Math.floor(Math.random() * 6) + 3; // 3% to 8% increments
       percent = percent + rand;
-      if (percent > 50) percent = 50;
+      if (percent > 90) percent = 90;
       setLoading(percent);
     } else {
       clearInterval(interval);
-      interval = setInterval(() => {
-        percent = percent + Math.round(Math.random() * 10) + 2;
-        if (percent > 91) {
-          percent = 91;
-          clearInterval(interval);
-        }
-        setLoading(percent);
-      }, 5);
     }
-  }, 5);
+  }, 35); // Reaches 90% smoothly in about 400-800ms
 
   function clear() {
     clearInterval(interval);
@@ -131,7 +128,7 @@ export const setProgress = (setLoading: (value: number) => void) => {
           resolve(percent);
           clearInterval(interval);
         }
-      }, 1);
+      }, 10);
     });
   }
   return { loaded, percent, clear };
