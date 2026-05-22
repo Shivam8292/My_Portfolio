@@ -2,15 +2,28 @@ import { SplitText } from "gsap-trial/SplitText";
 import gsap from "gsap";
 import { smoother } from "./smoother";
 
+gsap.registerPlugin(SplitText);
+
 export function initialFX() {
-  document.body.style.overflowY = "auto";
-  smoother.paused(false);
-  document.getElementsByTagName("main")[0].classList.add("main-active");
-  gsap.to("body", {
-    backgroundColor: "#0b080c",
-    duration: 0.5,
-    delay: 1,
-  });
+  try {
+    document.body.style.overflowY = "auto";
+    if (smoother) {
+      smoother.paused(false);
+    } else {
+      console.warn("initialFX: smoother is not defined yet.");
+    }
+    const mainElement = document.getElementsByTagName("main")[0];
+    if (mainElement) {
+      mainElement.classList.add("main-active");
+    }
+    gsap.to("body", {
+      backgroundColor: "#0b080c",
+      duration: 0.5,
+      delay: 1,
+    });
+  } catch (error) {
+    console.error("Error in initialFX setup:", error);
+  }
 
   var landingText = new SplitText(
     [".landing-info h3", ".landing-intro h2", ".landing-intro h1"],
