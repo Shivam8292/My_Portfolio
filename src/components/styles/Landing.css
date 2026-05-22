@@ -108,7 +108,7 @@
   left: 50%;
   z-index: 0;
   bottom: 50px;
-  pointer-events: inherit;
+  pointer-events: none;
 }
 .character-container::after {
   content: "";
@@ -140,6 +140,7 @@
   width: 100%;
   height: 100%;
   position: relative;
+  pointer-events: none;
 }
 .character-loaded .character-rim {
   animation: backlight 3s forwards;
@@ -160,6 +161,7 @@
   z-index: 3;
   transform: translate(-50%, -50%);
   border-radius: 50%;
+  pointer-events: auto;
 }
 .landing-intro {
   position: absolute;
