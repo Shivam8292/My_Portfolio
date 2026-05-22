@@ -48,16 +48,10 @@ const MainContainer = ({ children }: PropsWithChildren) => {
     });
 
     smootherInstance.scrollTop(0);
-    smootherInstance.paused(false);
+    smootherInstance.paused(true);
 
     setSmoother(smootherInstance);
     setIsSmootherReady(true);
-
-    import("./utils/initialFX").then((module) => {
-      if (module.initialFX) {
-        module.initialFX();
-      }
-    });
 
     const refreshHandler = () => {
       ScrollSmoother.refresh(true);

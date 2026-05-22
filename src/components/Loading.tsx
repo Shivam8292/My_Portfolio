@@ -12,14 +12,11 @@ const Loading = ({ percent }: { percent: number }) => {
 
   useEffect(() => {
     if (percent >= 100 && !loaded) {
-      const t1 = setTimeout(() => {
-        setLoaded(true);
-        const t2 = setTimeout(() => {
-          setIsLoaded(true);
-        }, 100);
-        return () => clearTimeout(t2);
-      }, 100);
-      return () => clearTimeout(t1);
+      setLoaded(true);
+      const t2 = setTimeout(() => {
+        setIsLoaded(true);
+      }, 80);
+      return () => clearTimeout(t2);
     }
   }, [percent, loaded]);
 
@@ -32,7 +29,7 @@ const Loading = ({ percent }: { percent: number }) => {
             module.initialFX();
           }
           setIsLoading(false);
-        }, 150);
+        }, 100);
         return () => clearTimeout(t3);
       });
     }
@@ -102,14 +99,14 @@ export const setProgress = (setLoading: (value: number) => void) => {
 
   let interval = setInterval(() => {
     if (percent < 90) {
-      let rand = Math.floor(Math.random() * 6) + 3; // 3% to 8% increments
+      let rand = Math.floor(Math.random() * 8) + 8; // 8% to 15% increments
       percent = percent + rand;
       if (percent > 90) percent = 90;
       setLoading(percent);
     } else {
       clearInterval(interval);
     }
-  }, 35); // Reaches 90% smoothly in about 400-800ms
+  }, 15); // Reaches 90% smoothly in about 150ms
 
   function clear() {
     clearInterval(interval);
@@ -118,17 +115,21 @@ export const setProgress = (setLoading: (value: number) => void) => {
 
   function loaded() {
     return new Promise<number>((resolve) => {
+      if (percent >= 100) {
+        resolve(100);
+        return;
+      }
       clearInterval(interval);
       interval = setInterval(() => {
         if (percent < 100) {
-          percent = percent + 10;
+          percent = percent + 15;
           if (percent > 100) percent = 100;
           setLoading(percent);
         } else {
           resolve(percent);
           clearInterval(interval);
         }
-      }, 10);
+      }, 5);
     });
   }
   return { loaded, percent, clear };

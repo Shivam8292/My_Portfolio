@@ -76,7 +76,7 @@
 /* Sidebar Expand Button */
 .expand-btn-container {
   position: absolute;
-  right: 20px;
+  right: -50px;
   top: 0;
   height: 100%;
   width: 50px;

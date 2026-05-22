@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import setCharacter from "./utils/character";
 import setLighting from "./utils/lighting";
+import { useLoading } from "../../context/LoadingProvider";
 import handleResize from "./utils/resizeUtils";
 import {
   handleMouseMove,
@@ -10,11 +11,13 @@ import {
   handleTouchMove,
 } from "./utils/mouseUtils";
 import setAnimations from "./utils/animationUtils";
+import { setProgress } from "../Loading";
 
 const Scene = () => {
   const canvasDiv = useRef<HTMLDivElement | null>(null);
   const hoverDivRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef(new THREE.Scene());
+  const { setLoading } = useLoading();
 
   useEffect(() => {
     if (canvasDiv.current) {
@@ -72,6 +75,7 @@ const Scene = () => {
       const clock = new THREE.Clock();
 
       const light = setLighting(scene);
+      let progress = setProgress((value) => setLoading(value));
       const { loadCharacter } = setCharacter(renderer, scene, camera);
 
       let activeCharacter: THREE.Object3D | null = null;
@@ -92,14 +96,16 @@ const Scene = () => {
           scene.add(character);
           headBone = character.getObjectByName("spine006") || null;
           screenLight = character.getObjectByName("screenlight") || null;
-          if (isMounted) {
-            setTimeout(() => {
-              if (isMounted) {
-                light.turnOnLights();
-                animations.startIntro();
-              }
-            }, 100);
-          }
+          progress.loaded().then(() => {
+            if (isMounted) {
+              setTimeout(() => {
+                if (isMounted) {
+                  light.turnOnLights();
+                  animations.startIntro();
+                }
+              }, 100);
+            }
+          });
         }
       });
 
