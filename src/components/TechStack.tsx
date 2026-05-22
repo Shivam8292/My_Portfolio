@@ -250,6 +250,14 @@ const TechStack = () => {
     <div className="techstack" ref={containerRef}>
       <h2> My Techstack</h2>
 
+      <div className="tech-bg-skills">
+        {skills.map((skill, index) => (
+          <span key={index} className="tech-bg-skill-tag">
+            {skill}
+          </span>
+        ))}
+      </div>
+
       <Canvas
         shadows
         dpr={[1, 1.5]}

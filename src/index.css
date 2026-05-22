@@ -109,6 +109,43 @@ body {
   left: 0;
   font-weight: 400;
   text-transform: uppercase;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.tech-bg-skills {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 1100px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.25;
+}
+
+.tech-bg-skill-tag {
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: #a87cff;
+  border: 1px solid rgba(168, 124, 255, 0.2);
+  padding: 6px 16px;
+  border-radius: 25px;
+  background: rgba(168, 124, 255, 0.04);
+  white-space: nowrap;
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 10px rgba(168, 124, 255, 0.15);
+}
+
+.tech-canvas {
+  position: relative;
+  z-index: 1;
+  pointer-events: auto;
 }
 
 @media screen and (min-width: 768px) {
@@ -119,5 +156,14 @@ body {
 @media screen and (max-width: 900px) {
   .techstack h2 {
     font-size: 40px;
+  }
+  .tech-bg-skills {
+    top: 60%;
+    width: 95%;
+    gap: 10px;
+  }
+  .tech-bg-skill-tag {
+    font-size: 0.95rem;
+    padding: 4px 12px;
   }
 }
