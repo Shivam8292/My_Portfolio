@@ -1,73 +1,65 @@
-# React + TypeScript + Vite
+# My Portfolio Website - Overview 🚀
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This repository contains the open-source version of my personal portfolio website.  
+Feel free to explore the code and use it for learning and inspiration.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## ⚠️ Usage Notice
 
-## React Compiler
+This project is shared for learning purposes only.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Please do NOT:
+- Clone or replicate the full website or design
+- Repost it with minor content changes
+- Use this project for commercial/client work
+- Create tutorials or content using this exact project
 
-## Expanding the ESLint configuration
+If you use parts of the code, you must provide proper credit linking back to the original repository.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Build your own version — don’t just copy.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+— Moncy Yohannan
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 🛠️ Instructions
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+I have modified the GSAP Club plugins using trial versions.  
+⚠️ Note: Trial plugins cannot be used for production or hosting.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+For official GSAP Club plugins, refer here:  
+https://gsap.com/docs/v3/Installation/
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
+
+## ⚙️ Tech Stack
+
+React • TypeScript • GSAP • Three.js • WebGL • HTML • CSS • JavaScript
+
+---
+
+## 🎨 Assets Usage
+
+Some 3D assets included in this repository are free to use for learning purposes.
+
+However:
+
+- The original 3D avatar used on my live portfolio is NOT included in this repository
+- That avatar is a custom asset created over ~1 month
+- It is not open source and not available for reuse
+
+Any usage, extraction, or redistribution of that avatar from my live website is strictly prohibited.
+
+---
+
+![Protfolio-Preview](https://github.com/user-attachments/assets/3c4557e7-6392-4928-b8a9-7b2476ef4edd)
+
+---
+
+## 📄 License
+
+This project is licensed under the Personal Portfolio License (PPL) v1.0.
+
+See the LICENSE file for full details
+

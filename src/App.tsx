@@ -1,32 +1,24 @@
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import Projects from './components/Projects';
-import Skills from './components/Skills';
-import Experience from './components/Experience';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
+import { lazy, Suspense } from "react";
+import "./App.css";
 
-export default function App() {
+const CharacterModel = lazy(() => import("./components/Character"));
+const MainContainer = lazy(() => import("./components/MainContainer"));
+import { LoadingProvider } from "./context/LoadingProvider";
+
+const App = () => {
   return (
-    <div style={{ position: 'relative', overflowX: 'hidden' }}>
-      {/* Visual background grids */}
-      <div className="bg-grid" />
-      <div className="bg-radial" />
-
-      {/* Navigation */}
-      <Navbar />
-
-      {/* Main Sections */}
-      <main>
-        <Hero />
-        <Projects />
-        <Skills />
-        <Experience />
-        <Contact />
-      </main>
-
-      {/* Footer */}
-      <Footer />
-    </div>
+    <>
+      <LoadingProvider>
+        <Suspense>
+          <MainContainer>
+            <Suspense>
+              <CharacterModel />
+            </Suspense>
+          </MainContainer>
+        </Suspense>
+      </LoadingProvider>
+    </>
   );
-}
+};
+
+export default App;
