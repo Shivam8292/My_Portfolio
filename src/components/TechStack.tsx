@@ -10,24 +10,32 @@ import {
   RapierRigidBody,
 } from "@react-three/rapier";
 
-const textureLoader = new THREE.TextureLoader();
-const imageUrls = [
-  "/images/react2.webp",
-  "/images/next2.webp",
-  "/images/node2.webp",
-  "/images/express.webp",
-  "/images/mongo.webp",
-  "/images/mysql.webp",
-  "/images/typescript.webp",
-  "/images/javascript.webp",
+const skills = [
+  "Python",
+  "JavaScript",
+  "SQL",
+  "C++",
+  "React.js",
+  "HTML",
+  "CSS",
+  "FastAPI",
+  "REST APIs",
+  "RAG",
+  "LangChain",
+  "LLM APIs",
+  "Semantic Search",
+  "Embeddings",
+  "ChromaDB",
+  "Git",
+  "GitHub",
+  "Excel",
+  "Power BI",
+  "Pandas",
+  "NumPy",
+  "Data Visualization"
 ];
-const textures = imageUrls.map((url) => textureLoader.load(url));
 
 const sphereGeometry = new THREE.SphereGeometry(1, 14, 14);
-
-const spheres = [...Array(30)].map(() => ({
-  scale: [0.7, 1, 0.8, 1, 1][Math.floor(Math.random() * 5)],
-}));
 
 type SphereProps = {
   vec?: THREE.Vector3;
@@ -167,19 +175,76 @@ const TechStack = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-  const materials = useMemo(() => {
-    return textures.map(
-      (texture) =>
-        new THREE.MeshStandardMaterial({
-          map: texture,
-          emissive: "#ffffff",
-          emissiveMap: texture,
-          emissiveIntensity: 0.3,
-          metalness: 0.3,
-          roughness: 0.8,
-        })
-    );
+  const spheres = useMemo(() => {
+    return [...Array(30)].map((_, i) => ({
+      scale: [0.75, 0.95, 0.85, 1.05, 0.9][Math.floor(Math.random() * 5)],
+      materialIndex: i % skills.length,
+    }));
   }, []);
+
+  const materials = useMemo(() => {
+    const createTextTexture = (text: string) => {
+      const canvas = document.createElement("canvas");
+      canvas.width = 256;
+      canvas.height = 256;
+      const ctx = canvas.getContext("2d");
+      if (ctx) {
+        // Draw solid dark background circle matching portfolio theme
+        ctx.fillStyle = "#120e16";
+        ctx.fillRect(0, 0, 256, 256);
+
+        // Draw a clean, thick purple circular border with neon glow style
+        ctx.beginPath();
+        ctx.arc(128, 128, 115, 0, Math.PI * 2);
+        ctx.strokeStyle = "#a87cff"; // purple accent
+        ctx.lineWidth = 10;
+        ctx.stroke();
+
+        // Text settings
+        ctx.fillStyle = "#ffffff";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+
+        // Draw text: split by space if multi-word, to fit nicely in the circle
+        const words = text.split(" ");
+        if (words.length > 1 && text.length > 8) {
+          ctx.font = "bold 26px sans-serif";
+          ctx.fillText(words[0], 128, 105);
+          ctx.fillText(words.slice(1).join(" "), 128, 150);
+        } else {
+          let fontSize = 34;
+          if (text.length > 8) fontSize = 28;
+          if (text.length > 12) fontSize = 22;
+          ctx.font = `bold ${fontSize}px sans-serif`;
+          ctx.fillText(text, 128, 128);
+        }
+      }
+      const texture = new THREE.CanvasTexture(canvas);
+      texture.colorSpace = THREE.SRGBColorSpace;
+      return texture;
+    };
+
+    return skills.map((skill) => {
+      const texture = createTextTexture(skill);
+      return new THREE.MeshStandardMaterial({
+        map: texture,
+        emissive: "#ffffff",
+        emissiveMap: texture,
+        emissiveIntensity: 0.35,
+        metalness: 0.4,
+        roughness: 0.5,
+      });
+    });
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      materials.forEach((mat) => {
+        mat.map?.dispose();
+        mat.dispose();
+      });
+    };
+  }, [materials]);
 
   return (
     <div className="techstack" ref={containerRef}>
@@ -209,8 +274,8 @@ const TechStack = () => {
           {spheres.map((props, i) => (
             <SphereGeo
               key={i}
-              {...props}
-              material={materials[Math.floor(Math.random() * materials.length)]}
+              scale={props.scale}
+              material={materials[props.materialIndex]}
               isActive={isActive}
             />
           ))}

@@ -103,7 +103,7 @@ const Scene = () => {
                   light.turnOnLights();
                   animations.startIntro();
                 }
-              }, 2500);
+              }, 100);
             }
           });
         }

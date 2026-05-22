@@ -15,8 +15,8 @@ const Loading = ({ percent }: { percent: number }) => {
       setLoaded(true);
       setTimeout(() => {
         setIsLoaded(true);
-      }, 1000);
-    }, 600);
+      }, 100);
+    }, 100);
   }
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const Loading = ({ percent }: { percent: number }) => {
             module.initialFX();
           }
           setIsLoading(false);
-        }, 900);
+        }, 150);
       }
     });
   }, [isLoaded]);
@@ -97,20 +97,22 @@ export const setProgress = (setLoading: (value: number) => void) => {
 
   let interval = setInterval(() => {
     if (percent <= 50) {
-      let rand = Math.round(Math.random() * 5);
+      let rand = Math.round(Math.random() * 15) + 5;
       percent = percent + rand;
+      if (percent > 50) percent = 50;
       setLoading(percent);
     } else {
       clearInterval(interval);
       interval = setInterval(() => {
-        percent = percent + Math.round(Math.random());
-        setLoading(percent);
+        percent = percent + Math.round(Math.random() * 10) + 2;
         if (percent > 91) {
+          percent = 91;
           clearInterval(interval);
         }
-      }, 200);
+        setLoading(percent);
+      }, 5);
     }
-  }, 100);
+  }, 5);
 
   function clear() {
     clearInterval(interval);
@@ -122,13 +124,14 @@ export const setProgress = (setLoading: (value: number) => void) => {
       clearInterval(interval);
       interval = setInterval(() => {
         if (percent < 100) {
-          percent++;
+          percent = percent + 10;
+          if (percent > 100) percent = 100;
           setLoading(percent);
         } else {
           resolve(percent);
           clearInterval(interval);
         }
-      }, 2);
+      }, 1);
     });
   }
   return { loaded, percent, clear };
