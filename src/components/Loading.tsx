@@ -13,12 +13,17 @@ const Loading = ({ percent }: { percent: number }) => {
   useEffect(() => {
     if (percent >= 100 && !loaded) {
       setLoaded(true);
+    }
+  }, [percent, loaded]);
+
+  useEffect(() => {
+    if (loaded && !isLoaded) {
       const t2 = setTimeout(() => {
         setIsLoaded(true);
       }, 80);
       return () => clearTimeout(t2);
     }
-  }, [percent, loaded]);
+  }, [loaded, isLoaded]);
 
   useEffect(() => {
     if (isLoaded) {
