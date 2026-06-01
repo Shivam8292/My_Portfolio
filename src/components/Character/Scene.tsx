@@ -12,7 +12,7 @@ import {
 } from "./utils/mouseUtils";
 import setAnimations from "./utils/animationUtils";
 import { setProgress } from "../Loading";
-import { setCharTimeline, setAllTimeline } from "../../utils/GsapScroll";
+import { setCharTimeline, setAllTimeline } from "../utils/GsapScroll";
 
 const SHOW_STATIC_IMAGE = true; // Set to false to revert back to 3D avatar instantly!
 
