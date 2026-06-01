@@ -382,8 +382,8 @@ h2.landing-info-h2 {
   z-index: 1;
   background: radial-gradient(
     circle at center,
-    transparent 15%,
-    rgba(18, 14, 22, 0.4) 60%,
+    transparent 20%,
+    rgba(18, 14, 22, 0.4) 65%,
     rgba(18, 14, 22, 0.95) 100%
   );
 }
@@ -405,18 +405,19 @@ h2.landing-info-h2 {
 }
 
 .profile-static-img {
-  height: 100%;
-  width: 130%;
-  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
   top: 0;
   left: 0;
   object-fit: cover;
+  object-position: center 25%;
   pointer-events: none;
   opacity: 0.85; /* Softened to let the dark theme and code overlay feel unified */
 }
 
 @media screen and (max-width: 1024px) {
   .profile-static-img {
-    width: 100%;
+    object-position: center 30%;
   }
 }
