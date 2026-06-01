@@ -12,6 +12,9 @@ import {
 } from "./utils/mouseUtils";
 import setAnimations from "./utils/animationUtils";
 import { setProgress } from "../Loading";
+import { setCharTimeline, setAllTimeline } from "../../utils/GsapScroll";
+
+const SHOW_STATIC_IMAGE = true; // Set to false to revert back to 3D avatar instantly!
 
 const Scene = () => {
   const canvasDiv = useRef<HTMLDivElement | null>(null);
@@ -20,6 +23,16 @@ const Scene = () => {
   const { setLoading } = useLoading();
 
   useEffect(() => {
+    if (SHOW_STATIC_IMAGE) {
+      // Skip 3D renderer setup, just initialize progress and GSAP transitions
+      let progress = setProgress((value) => setLoading(value));
+      progress.loaded().then(() => {
+        setCharTimeline(null, {} as any);
+        setAllTimeline();
+      });
+      return;
+    }
+
     if (canvasDiv.current) {
       let isMounted = true;
       let isCharacterVisible = true;
@@ -195,10 +208,22 @@ const Scene = () => {
 
   return (
     <>
-      <div className="character-container">
+      <div className={`character-container ${SHOW_STATIC_IMAGE ? "character-loaded" : ""}`}>
         <div className="character-model" ref={canvasDiv}>
-          <div className="character-rim"></div>
-          <div className="character-hover" ref={hoverDivRef}></div>
+          {SHOW_STATIC_IMAGE ? (
+            <div className="profile-image-frame">
+              <img 
+                src="/images/Shivam_photo.png" 
+                alt="Shivam Kumar" 
+                className="profile-static-img" 
+              />
+            </div>
+          ) : (
+            <>
+              <div className="character-rim"></div>
+              <div className="character-hover" ref={hoverDivRef}></div>
+            </>
+          )}
         </div>
       </div>
     </>

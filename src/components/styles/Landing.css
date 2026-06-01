@@ -363,3 +363,53 @@ h2.landing-info-h2 {
     font-size: 75px;
   }
 }
+
+/* Custom static profile image styles replacing 3D avatar */
+.profile-image-frame {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.profile-static-img {
+  height: 75vh;
+  max-height: 680px;
+  width: auto;
+  object-fit: contain;
+  border-radius: 24px;
+  border: 1.5px solid rgba(168, 124, 255, 0.25);
+  box-shadow: 
+    0 0 35px rgba(168, 124, 255, 0.15), 
+    0 25px 60px rgba(0, 0, 0, 0.6);
+  background: rgba(18, 14, 22, 0.35);
+  backdrop-filter: blur(10px);
+  animation: floatProfile 6s ease-in-out infinite;
+  pointer-events: auto; /* Allow right-click / save image if they want */
+}
+
+@keyframes floatProfile {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-16px);
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .profile-static-img {
+    height: 50vh;
+    max-height: 480px;
+    margin-top: 40px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .profile-static-img {
+    height: 40vh;
+    max-height: 350px;
+  }
+}
