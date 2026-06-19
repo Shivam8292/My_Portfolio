@@ -17,6 +17,13 @@ const projects = [
     link: "https://github.com/Shivam8292/SleekScan"
   },
   {
+    title: "OfferSense",
+    description: "AI-powered salary intelligence platform that evaluates job offer letters against real market data, generates negotiation verdicts, counter-offers, and HR email scripts.",
+    tags: ["FastAPI", "React", "Groq", "LLaMA 3.3"],
+    specs: ["// OFFER_ANALYSIS", "// SALARY_BENCHMARK", "// NEGOTIATION_AI"],
+    link: "https://github.com/Shivam8292/OfferSense"
+  },
+  {
     title: "Corporate Autopsy Machine",
     description: "Developed a RAG-based platform using Gemini 2.0 to automate forensic startup failure analysis and reporting. Vectorized 400+ startup failures.",
     tags: ["Gemini 2.0", "ChromaDB", "React"],

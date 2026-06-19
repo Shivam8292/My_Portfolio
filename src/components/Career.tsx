@@ -162,7 +162,7 @@ const Career = () => {
               <h3>2026</h3>
             </div>
             <p>
-              Completed B.E. (Hons.) in Computer Science Engineering with specialization in AI & ML, achieving a CGPA of 7.88/10. Studied advanced topics in Deep Learning, Vector Search, and Multi-Agent workflows.
+              Completed B.E. (Hons.) in Computer Science Engineering with specialization in AI & ML, achieving a CGPA of 8.04/10. Studied advanced topics in Deep Learning, Vector Search, and Multi-Agent workflows.
             </p>
           </div>
           <div className="career-info-box">
